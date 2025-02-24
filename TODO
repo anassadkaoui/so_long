@@ -1,0 +1,26 @@
+COLLECTIBLE, EXIT, PLAYER - MUST EXISTS
+cleanup (mlx and any allocated memory) before exit
+check the size of the map corresponding with the display of mac
+check the xpm files when uploading
+check extension of the file opened `.ber`
+check the syscall if they failed
+check every allocation, and free before exiting
+check map rectangle (new line in the last row not allowed)
+check mlx function if they failed!
+Makefile (relink and no wildcards)
+
+
+
+
+
+
+
+
+=>freeing dynamic allocated memory using malloc, destroying the mlx window and environment(windows, images)
+=>handle when the program exits due to an error(the program terminated unexpectedly)
+
+
+FINAL THOUGHT:doing this using and exit handler function, make sure to call the cleanup_exit func at any error handling.
+
+
+frow where the problem of the installed valgrind heppened???
