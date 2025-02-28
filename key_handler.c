@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:32:46 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/06 00:05:36 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:26:48 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	update_player_position(t_game *game, int new_x, int new_y)
 	{
 		game->move_count++;
 		ft_printf("Moves: %d\n", game->move_count);
+		free_game(game);
 		exit (1);
 	}
 	if (is_exit(game, new_x, new_y) && game->total_collectibles != 0)
@@ -53,15 +54,18 @@ void	update_player_position(t_game *game, int new_x, int new_y)
 
 int	key_handler(int key, t_game *game)
 {
-	if (key == 53)
-		exit (1);
-	else if (key == 123)
+	if (key == 65307)
+	{
+		free_map(game->map);
+		exit(1);
+	}
+	else if (key == 65361)
 		update_player_position(game, game->player_x - 1, game->player_y);
-	else if (key == 126)
+	else if (key == 65362)
 		update_player_position(game, game->player_x, game->player_y - 1);
-	else if (key == 124)
+	else if (key == 65363)
 		update_player_position(game, game->player_x + 1, game->player_y);
-	else if (key == 125)
+	else if (key == 65364)
 		update_player_position(game, game->player_x, game->player_y + 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 20:28:38 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/06 20:14:50 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:57:56 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	check_right(t_game *game)
 	while (y < game->height)
 	{
 		if (game->map[y][game->width - 1] != '1')
-		{
-			write(1, "Error\nthe map is not enclosed\n", 30);
-			exit(1);
-		}
+			exit_with_error(game, "Error\nInput Problem\n");
 		y++;
 	}
 }
@@ -36,10 +33,7 @@ void	check_left(t_game *game)
 	while (y < game->height)
 	{
 		if (game->map[y][0] != '1')
-		{
-			write(1, "Error\nthe map is not enclosed\n", 30);
-			exit(1);
-		}
+			exit_with_error(game, "Error\nInput Problem\n");
 		y++;
 	}
 }
@@ -52,10 +46,7 @@ void	check_top_bottom(t_game *game)
 	while (x < game->width)
 	{
 		if (game->map[0][x] != '1' || game->map[game->height - 1][x] != '1')
-		{
-			write(1, "Error\nthe map is not enclosed\n", 30);
-			exit(1);
-		}
+			exit_with_error(game, "Error\nInput Problem\n");
 		x++;
 	}
 }
@@ -89,8 +80,6 @@ void	check_map_elements_number(t_game *game)
 		}
 	}
 	if (counts[0] != 1 || counts[1] != 1 || counts[2] <= 0)
-	{
-		exit_with_error("Error\nInvalid number of elements\n");
-	}
+		exit_with_error(game, "Error\nInput Problem\n");
 	game->total_collectibles = counts[2];
 }

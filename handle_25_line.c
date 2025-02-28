@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:45:55 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/05 21:51:39 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:57:24 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	is_collectible(t_game *game, int x, int y)
 	return (game->map[y][x] == 'C');
 }
 
-void	exit_with_error(char *msg)
+void	exit_with_error(t_game *game,char *msg)
 {
-	write(2, msg, ft_strlen(msg));
+	(void)game;
+	ft_printf("%s", msg);
 	exit(1);
 }

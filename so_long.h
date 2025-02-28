@@ -6,14 +6,14 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 23:12:46 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/23 19:14:04 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:56:26 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include "get_next_line/get_next_line.h"
 # include "printf/ft_printf.h"
 # include <stdio.h>
@@ -46,10 +46,12 @@ typedef struct s_game
 	int		x;
 	int		y;
 	int		move_count;
+	int		screen_width;
+	int		screen_height;
 }	t_game;
 
 char	**ber_to_array(t_game *game, const char *file_path);
-void	does_the_file_exist(char *argv1);
+void	does_the_file_exist(t_game *game, char *argv1);
 void	map_parsing(t_game *game, int argc, char *argv1);
 void	is_map_rectangular(t_game *game);
 void	is_map_enclosed(t_game *game);
@@ -64,8 +66,12 @@ int		handle_keys(int key, void *param);
 int		close_hook(void *param);
 int		ft_strleen(const char *str);
 int		key_handler(int key, t_game *game);
-void	exit_with_error(char *msg);
+void	exit_with_error(t_game *game,char *msg);
 int		is_exit(t_game *game, int x, int y);
 int		is_wall(t_game *game, int x, int y);
+void	cleanup_images(t_game *game);
+void	free_game(t_game *game);
+void	initialize_game(t_game *game);
+void	check_dot_ber(t_game *game, const char *filename);
 
 #endif

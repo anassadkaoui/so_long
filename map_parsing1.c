@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:38:52 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/23 16:10:25 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:17:10 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	**ber_to_array(t_game *game, const char *file_path)
 	int		i;
 
 	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+		exit_with_error(game, "Error\nA system call error\n");
 	lines = malloc(sizeof(char *) * 1024);
 	if (!lines)
 	{
@@ -40,60 +42,56 @@ char	**ber_to_array(t_game *game, const char *file_path)
 	return (lines);
 }
 
-void	does_the_file_exist(char *argv1)
+void	does_the_file_exist(t_game *game, char *argv1)
 {
 	int	fd;
 
 	fd = open(argv1, O_RDONLY);
 	if (fd == -1)
 	{
-		write(1, "Error\nthe file does not exist\n", 30);
-		exit(1);
+		exit_with_error(game, "Error\nA system call error.\n(mostly the file is not exist)\n");
 	}
 	close(fd);
 }
 
-void	is_file_empty(char *file_path)
+void	is_file_empty(t_game *game, char *file_path)
 {
 	int		fd;
 	char	buffer[1];
 	int		bytes_read;
 
 	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+		exit_with_error(game, "A system call error.\n");
 	bytes_read = read(fd, buffer, 1);
+	if (bytes_read == -1)
+	{
+		ft_printf("A system call error.\n");
+		close(fd);
+		// exit(1);
+	}
 	close(fd);
 	if (bytes_read == 0)
-	{
-		write(1, "Error\nthe file is empty\n", 24);
-		exit(1);
-	}
+		exit_with_error(game, "Error\nInput Problem\n");
 }
 
 void	is_map_rectangular(t_game *game)
 {
-	//-1 to not count the newline.
 	int		i;
 	int		j;
 	size_t	last_row_width;
 	size_t	row_width;
 
 	if (!game->map || !game->map[0])
-	{
-		write(1, "Error\nthe map is not rectangular\n", 33);
-		exit(1);
-	}
+		exit_with_error(game, "Error\nInput Problem\n");
 	last_row_width = ft_strlen(game->map[game->height - 1]) + 1;
 	i = 0;
 	j = 0;
-	printf("height:%d\n\n\n",game->height);
 	while (j < (game->height - 1))
 	{
 		row_width = ft_strlen(game->map[i]);
 		if (row_width != last_row_width)
-		{
-			write(1, "Error\nthe map is not rectangular\n", 33);
-			exit(1);
-		}
+			exit_with_error(game, "Error\nInput Problem\n");
 		i++;
 		j++;
 	}
@@ -103,11 +101,11 @@ void	map_parsing(t_game *game, int argc, char *argv1)
 {
 	if (argc != 2)
 	{
-		write(1, "Error\nyou gave no map\n", 23);
-		exit(1);
+		exit_with_error(game, "Error\nInput Problem\n");
 	}
-	does_the_file_exist(argv1);
-	is_file_empty(argv1);
+	check_dot_ber(game, argv1);
+	does_the_file_exist(game, argv1);
+	is_file_empty(game, argv1);
 	game->map = ber_to_array(game, argv1);
 	is_map_rectangular(game);
 	is_map_enclosed(game);
