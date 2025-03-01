@@ -6,18 +6,17 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:38:52 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/28 12:17:10 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:48:24 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**ber_to_array(t_game *game, const char *file_path)
+char	**ber_to_array(t_game *game, const char *file_path, int i)
 {
 	int		fd;
 	char	**lines;
 	char	*line;
-	int		i;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
@@ -49,7 +48,7 @@ void	does_the_file_exist(t_game *game, char *argv1)
 	fd = open(argv1, O_RDONLY);
 	if (fd == -1)
 	{
-		exit_with_error(game, "Error\nA system call error.\n(mostly the file is not exist)\n");
+		exit_with_error(game, "Error\nA system call error.\n");
 	}
 	close(fd);
 }
@@ -68,7 +67,7 @@ void	is_file_empty(t_game *game, char *file_path)
 	{
 		ft_printf("A system call error.\n");
 		close(fd);
-		// exit(1);
+		exit(1);
 	}
 	close(fd);
 	if (bytes_read == 0)
@@ -106,7 +105,7 @@ void	map_parsing(t_game *game, int argc, char *argv1)
 	check_dot_ber(game, argv1);
 	does_the_file_exist(game, argv1);
 	is_file_empty(game, argv1);
-	game->map = ber_to_array(game, argv1);
+	game->map = ber_to_array(game, argv1, 0);
 	is_map_rectangular(game);
 	is_map_enclosed(game);
 	check_map_elements_number(game);

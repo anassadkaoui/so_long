@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 23:12:46 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/28 13:56:26 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:49:39 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_game
 	int		screen_height;
 }	t_game;
 
-char	**ber_to_array(t_game *game, const char *file_path);
+char	**ber_to_array(t_game *game, const char *file_path, int i);
 void	does_the_file_exist(t_game *game, char *argv1);
 void	map_parsing(t_game *game, int argc, char *argv1);
 void	is_map_rectangular(t_game *game);
@@ -66,12 +66,19 @@ int		handle_keys(int key, void *param);
 int		close_hook(void *param);
 int		ft_strleen(const char *str);
 int		key_handler(int key, t_game *game);
-void	exit_with_error(t_game *game,char *msg);
+void	exit_with_error(t_game *game, char *msg);
 int		is_exit(t_game *game, int x, int y);
 int		is_wall(t_game *game, int x, int y);
 void	cleanup_images(t_game *game);
 void	free_game(t_game *game);
 void	initialize_game(t_game *game);
 void	check_dot_ber(t_game *game, const char *filename);
+void	is_collectible_blocked(t_game *game);
+void	load_image(t_game *game, void **img, char *path);
+int		setup_game(t_game *game, int argc, char *argv[]);
+void	find_player_position(t_game *game);
+void	initialize_images(t_game *game);
+void	free_images(t_game *game, void *images[], int count);
+int		is_adjacent_blocked(t_game *game, int y, int x);
 
 #endif

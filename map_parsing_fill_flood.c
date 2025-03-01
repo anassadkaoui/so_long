@@ -6,12 +6,11 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:40:44 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/02/27 17:59:16 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:44:55 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <string.h>
 
 char	**copy_map(t_game *game)
 {
@@ -58,6 +57,7 @@ void	validate_map(t_game *game, int player_x, int player_y)
 	int		y;
 	char	**map_copy;
 
+	is_collectible_blocked(game);
 	map_copy = copy_map(game);
 	flood_fill(map_copy, player_x, player_y);
 	y = -1;
@@ -72,6 +72,7 @@ void	validate_map(t_game *game, int player_x, int player_y)
 	}
 	free_map(map_copy);
 }
+
 void	check_dot_ber(t_game *game, const char *filename)
 {
 	int	i;
@@ -81,10 +82,32 @@ void	check_dot_ber(t_game *game, const char *filename)
 		i++;
 	if (i < 4)
 		exit_with_error(game, "Error\nInput Problem\n");
-	if (filename[i - 4] != '.' || 
-		filename[i - 3] != 'b' || 
-		filename[i - 2] != 'e' || 
-		filename[i - 1] != 'r')
+	if (filename[i - 4] != '.' || filename[i - 3] != 'b'
+		|| filename[i - 2] != 'e' || filename[i - 1] != 'r')
 		exit_with_error(game, "Error\nInput Problem\n");
 }
 
+void	is_collectible_blocked(t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < game->height)
+	{
+		x = 0;
+		while (x < game->width)
+		{
+			if (game->map[y][x] == 'C')
+			{
+				if (is_adjacent_blocked(game, y, x))
+				{
+					free_game(game);
+					exit_with_error(game, "Error\nInput Problem\n");
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+}
