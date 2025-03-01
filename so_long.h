@@ -6,13 +6,14 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 23:12:46 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/03/01 18:01:06 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:16:22 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "mlx/mlx.h"
 # include "get_next_line/get_next_line.h"
 # include "printf/ft_printf.h"
 # include <stdio.h>
