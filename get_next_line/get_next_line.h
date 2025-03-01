@@ -6,16 +6,15 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:53:27 by asadkaou          #+#    #+#             */
-/*   Updated: 2024/12/04 18:39:21 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:55:08 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE 
+# ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 50
-
 # endif
 
 # include <stdlib.h>

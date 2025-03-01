@@ -6,7 +6,7 @@
 /*   By: asadkaou <asadkaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:28:17 by asadkaou          #+#    #+#             */
-/*   Updated: 2025/03/01 16:43:02 by asadkaou         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:06:28 by asadkaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	load_image(t_game *game, void **img, char *path)
 {
-    int img_width;
-    int img_height;
+	int	img_width;
+	int	img_height;
 
-    *img = mlx_xpm_file_to_image(game->mlx, path, &img_width, &img_height);
-    if (!(*img))
-    {
-        free_game(game);
-        exit_with_error(game, "Error\n.xpm file error\n");
-    }
+	*img = mlx_xpm_file_to_image(game->mlx, path, &img_width, &img_height);
+	if (!(*img))
+	{
+		free_game(game);
+		exit_with_error(game, "Error\n.xpm file error\n");
+	}
 }
 
 int	setup_game(t_game *game, int argc, char *argv[])
@@ -62,17 +62,16 @@ void	free_images(t_game *game, void *images[], int count)
 	}
 }
 
-int is_adjacent_blocked(t_game *game, int y, int x)
+int	is_adjacent_blocked(t_game *game, int y, int x)
 {
-    int up;
-    int down;
-    int left;
-    int right;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
 
-    up = (game->map[y - 1][x] == '1' || game->map[y - 1][x] == 'E');
-    down = (game->map[y + 1][x] == '1' || game->map[y + 1][x] == 'E');
-    left = (game->map[y][x - 1] == '1' || game->map[y][x - 1] == 'E');
-    right = (game->map[y][x + 1] == '1' || game->map[y][x + 1] == 'E');
-    
-    return (up && down && left && right);
+	up = (game->map[y - 1][x] == '1' || game->map[y - 1][x] == 'E');
+	down = (game->map[y + 1][x] == '1' || game->map[y + 1][x] == 'E');
+	left = (game->map[y][x - 1] == '1' || game->map[y][x - 1] == 'E');
+	right = (game->map[y][x + 1] == '1' || game->map[y][x + 1] == 'E');
+	return (up && down && left && right);
 }
